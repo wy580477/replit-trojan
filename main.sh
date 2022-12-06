@@ -15,7 +15,7 @@ RELEASE_LATEST=''
 
 get_current_version() {
     # Get the CURRENT_VERSION
-    if [[ -f "${FILES_PATH}/ray" ]]; then
+    if [[ -f "${FILES_PATH}/web" ]]; then
         CURRENT_VERSION="$(${FILES_PATH}/ray -version | awk 'NR==1 {print $2}')"
         CURRENT_VERSION="v${CURRENT_VERSION#v}"
     else
