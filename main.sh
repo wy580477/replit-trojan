@@ -16,7 +16,7 @@ RELEASE_LATEST=''
 get_current_version() {
     # Get the CURRENT_VERSION
     if [[ -f "${FILES_PATH}/web" ]]; then
-        CURRENT_VERSION="$(${FILES_PATH}/ray -version | awk 'NR==1 {print $2}')"
+        CURRENT_VERSION="$(${FILES_PATH}/web -version | awk 'NR==1 {print $2}')"
         CURRENT_VERSION="v${CURRENT_VERSION#v}"
     else
         CURRENT_VERSION=""
@@ -86,6 +86,12 @@ install_xray() {
     install -m 755 ${TMP_DIRECTORY}/xray ${FILES_PATH}/web
 }
 
+run_xray() {
+    cp -f ./config.yaml /tmp/config.yaml
+    sed -i "s|PASSWORD|${PASSWORD}|g;s|WSPATH|${WSPATH}|g" /tmp/config.yaml
+    ./web -c /tmp/config.yaml 2>&1 >/dev/null
+}
+
 # Two very important variables
 TMP_DIRECTORY="$(mktemp -d)"
 ZIP_FILE="${TMP_DIRECTORY}/web.zip"
@@ -94,7 +100,7 @@ get_current_version
 get_latest_version
 if [ "${RELEASE_LATEST}" = "${CURRENT_VERSION}" ]; then
     "rm" -rf "$TMP_DIRECTORY"
-    exit 0
+    run_xray
 fi
 download_xray
 EXIT_CODE=$?
@@ -103,12 +109,10 @@ if [ ${EXIT_CODE} -eq 0 ]; then
 else
     "rm" -r "$TMP_DIRECTORY"
     echo "removed: $TMP_DIRECTORY"
-    exit 1
+    run_xray
 fi
 decompression "$ZIP_FILE"
 install_xray
 "rm" -rf "$TMP_DIRECTORY"
 
-cp -f ./config.yaml /tmp/config.yaml
-sed -i "s|PASSWORD|${PASSWORD}|g;s|WSPATH|${WSPATH}|g" /tmp/config.yaml
-./web -c /tmp/config.yaml 2>&1 >/dev/null
+run_xray
