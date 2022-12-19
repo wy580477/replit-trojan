@@ -24,13 +24,13 @@
 
 ![image](https://user-images.githubusercontent.com/98247050/205805317-349f4814-5d1b-4fba-8d53-7de12a7f1810.png)
 
-然后点击网页上方 Run，稍等片刻即部署完成，右侧 Webview 预览选项卡地址栏内为服务器域名。
+然后点击网页上方 Run，稍等片刻即部署完成，右侧console窗口会自动输出分享链接和二维码，可以使用v2rayn/v2rayng客户端扫码。
 
-如需设置自定义域名，点击 Webview 预览选项卡的地址栏右侧铅笔图标，即可进入向导。
-
-客户端设置示例：
+手动客户端设置示例，右侧 Webview 预览选项卡地址栏内为服务器域名：
 
 ![image](https://user-images.githubusercontent.com/98247050/205805711-75a6ddcf-20c6-4e2c-a90a-05dc979ade45.png)
+
+如需设置自定义域名，点击 Webview 预览选项卡的地址栏右侧铅笔图标，即可进入向导。
 
 
 
