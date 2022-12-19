@@ -87,14 +87,34 @@ install_xray() {
 }
 
 run_xray() {
+    TR_PASSWORD=$(curl -s $REPLIT_DB_URL/tr_password)
+    TR_PATH=$(curl -s $REPLIT_DB_URL/tr_path)    
+    if [ "${TR_PASSWORD}" = "" ]; then
+        NEW_PASS="$(echo $RANDOM | md5sum | head -c 8; echo)"
+        curl -sXPOST $REPLIT_DB_URL/tr_password="${NEW_PASS}" 
+    fi
+    if [ "${TR_PATH}" = "" ]; then
+        NEW_PATH=$(echo $RANDOM | md5sum | head -c 6; echo)
+        curl -sXPOST $REPLIT_DB_URL/tr_path="${NEW_PATH}"
+    fi
+    if [ "${PASSWORD}" = "" ]; then
+        USER_PASSWORD=$(curl -s $REPLIT_DB_URL/tr_password)
+    else
+        USER_PASSWORD=${PASSWORD}
+    fi
+    if [ "${WSPATH}" = "" ]; then
+        USER_PATH=/$(curl -s $REPLIT_DB_URL/tr_path)
+    else
+        USER_PATH=${WSPATH}
+    fi
     cp -f ./config.yaml /tmp/config.yaml
-    sed -i "s|PASSWORD|${PASSWORD}|g;s|WSPATH|${WSPATH}|g" /tmp/config.yaml
+    sed -i "s|PASSWORD|${USER_PASSWORD}|g;s|WSPATH|${USER_PATH}|g" /tmp/config.yaml
     ./web -c /tmp/config.yaml 2>&1 >/dev/null &
-    PATH_IN_LINK=$(echo ${WSPATH} | sed "s|\/|\%2F|g")
+    PATH_IN_LINK=$(echo ${USER_PATH} | sed "s|\/|\%2F|g")
     echo ""
     echo "Share Link:"
-    echo trojan://"${PASSWORD}@${REPL_SLUG}.${REPL_OWNER}.repl.co:443?security=tls&type=ws&path=${PATH_IN_LINK}#Replit"
-    echo trojan://"${PASSWORD}@${REPL_SLUG}.${REPL_OWNER}.repl.co:443?security=tls&type=ws&path=${PATH_IN_LINK}#Replit" >/tmp/link
+    echo trojan://"${USER_PASSWORD}@${REPL_SLUG}.${REPL_OWNER}.repl.co:443?security=tls&type=ws&path=${PATH_IN_LINK}#Replit"
+    echo trojan://"${USER_PASSWORD}@${REPL_SLUG}.${REPL_OWNER}.repl.co:443?security=tls&type=ws&path=${PATH_IN_LINK}#Replit" >/tmp/link
     echo ""
     qrencode -t ansiutf8 < /tmp/link
     tail -f
