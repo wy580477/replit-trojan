@@ -89,7 +89,15 @@ install_xray() {
 run_xray() {
     cp -f ./config.yaml /tmp/config.yaml
     sed -i "s|PASSWORD|${PASSWORD}|g;s|WSPATH|${WSPATH}|g" /tmp/config.yaml
-    ./web -c /tmp/config.yaml 2>&1 >/dev/null
+    ./web -c /tmp/config.yaml 2>&1 >/dev/null &
+    PATH_IN_LINK=$(echo ${WSPATH} | sed "s|\/|\%2F|g")
+    echo ""
+    echo "Share Link:"
+    echo trojan://"${PASSWORD}@${REPL_SLUG}.${REPL_OWNER}.repl.co:443?security=tls&type=ws&path=${PATH_IN_LINK}#Replit"
+    echo trojan://"${PASSWORD}@${REPL_SLUG}.${REPL_OWNER}.repl.co:443?security=tls&type=ws&path=${PATH_IN_LINK}#Replit" >/tmp/link
+    echo ""
+    qrencode -t ansiutf8 < /tmp/link
+    tail -f
 }
 
 # Two very important variables
