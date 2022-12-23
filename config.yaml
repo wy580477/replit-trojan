@@ -18,6 +18,7 @@ inbounds:
     destOverride:
     - http
     - tls
+    - quic
 outbounds:
 - protocol: freedom
   tag: direct
