@@ -6,7 +6,9 @@
 
 ## 概述
 
-本项目用于在 Replit 免费服务上部署 Trojan Websocket 协议，支持 WS-0RTT 降低延迟。
+本项目用于在 Replit 免费服务上部署 Trojan Websocket 协议。
+
+支持 WS-0RTT 降低延迟，Xray 核心客户端在 Websocket 路径后加上 ?ed=2048 即可启用。
 
 ## 注意
 
