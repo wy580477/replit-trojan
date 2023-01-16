@@ -24,25 +24,13 @@ get_current_version() {
 }
 
 get_latest_version() {
-    # Get Xray latest release version number
-    local tmp_file
-    tmp_file="$(mktemp)"
-    if ! curl -sS -H "Accept: application/vnd.github.v3+json" -o "$tmp_file" 'https://api.github.com/repos/XTLS/Xray-core/releases/latest'; then
-        "rm" "$tmp_file"
-        echo 'error: Failed to get release list, please check your network.'
-        exit 1
-    fi
-    RELEASE_LATEST="$(jq .tag_name "$tmp_file" | sed 's/\"//g')"
+    # Get latest release version number
+    RELEASE_LATEST="$(curl -IkLs -o ${TMP_DIRECTORY}/NUL -w %{url_effective} https://github.com/XTLS/Xray-core/releases/latest | grep -o "[^/]*$")"
+    RELEASE_LATEST="v${RELEASE_LATEST#v}"
     if [[ -z "$RELEASE_LATEST" ]]; then
-        if grep -q "API rate limit exceeded" "$tmp_file"; then
-            echo "error: github API rate limit exceeded"
-        else
-            echo "error: Failed to get the latest release version."
-        fi
-        "rm" "$tmp_file"
+        echo "error: Failed to get the latest release version, please check your network."
         exit 1
     fi
-    "rm" "$tmp_file"
 }
 
 download_xray() {
@@ -88,13 +76,13 @@ install_xray() {
 
 run_xray() {
     TR_PASSWORD=$(curl -s $REPLIT_DB_URL/tr_password)
-    TR_PATH=$(curl -s $REPLIT_DB_URL/tr_path)    
+    TR_PATH=$(curl -s $REPLIT_DB_URL/tr_path)
     if [ "${TR_PASSWORD}" = "" ]; then
-        NEW_PASS="$(echo $RANDOM | md5sum | head -c 8; echo)"
-        curl -sXPOST $REPLIT_DB_URL/tr_password="${NEW_PASS}" 
+        NEW_PASS="$(echo $RANDOM | md5sum | head -c 8)"
+        curl -sXPOST $REPLIT_DB_URL/tr_password="${NEW_PASS}"
     fi
     if [ "${TR_PATH}" = "" ]; then
-        NEW_PATH=$(echo $RANDOM | md5sum | head -c 6; echo)
+        NEW_PATH=$(echo $RANDOM | md5sum | head -c 6)
         curl -sXPOST $REPLIT_DB_URL/tr_path="${NEW_PATH}"
     fi
     if [ "${PASSWORD}" = "" ]; then
@@ -116,8 +104,11 @@ run_xray() {
     echo trojan://"${USER_PASSWORD}@${REPL_SLUG}.${REPL_OWNER}.repl.co:443?security=tls&type=ws&path=${PATH_IN_LINK}#Replit"
     echo trojan://"${USER_PASSWORD}@${REPL_SLUG}.${REPL_OWNER}.repl.co:443?security=tls&type=ws&path=${PATH_IN_LINK}#Replit" >/tmp/link
     echo ""
-    qrencode -t ansiutf8 < /tmp/link
-    tail -f
+    qrencode -t ansiutf8 </tmp/link
+    while :; do
+        curl https://${REPL_SLUG}.${REPL_OWNER}.repl.co
+        sleep 600
+    done
 }
 
 # Two very important variables
