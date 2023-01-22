@@ -102,6 +102,7 @@ run_xray() {
     echo ""
     echo "Share Link:"
     echo trojan://"${USER_PASSWORD}@${REPL_SLUG}.${REPL_OWNER}.repl.co:443?security=tls&type=ws&path=${PATH_IN_LINK}#Replit"
+    echo "Trojan Password: ${USER_PASSWORD}, Websocket Path: ${USER_PATH}, Domain: ${REPL_SLUG}.${REPL_OWNER}.repl.co, Port: 443"
     echo trojan://"${USER_PASSWORD}@${REPL_SLUG}.${REPL_OWNER}.repl.co:443?security=tls&type=ws&path=${PATH_IN_LINK}#Replit" >/tmp/link
     echo ""
     qrencode -t ansiutf8 </tmp/link
