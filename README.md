@@ -18,13 +18,13 @@
 
 ## 部署
  
-前往 replit.com 注册账户，然后点击下方按钮
+ **已无法从本库直接部署。**
 
-<a href="https://repl.it/github/wy580477/replit-trojan">
-  <img alt="Run on Repl.it" src="https://repl.it/badge/github/andbruibm/reader-replit" style="height: 40px; width: 190px;" />
-</a>
-
-再点击 Import from Github。
+ 1. 点击本仓库右上角Fork，再点击Create Fork。   
+ 2. 在Fork出来的仓库页面上点击Setting，勾选Template repository。   
+ 3. 然后点击Code返回之前的页面，点Setting下面新出现的按钮Use this template，起个随机名字创建新库。  
+ 4. 项目名称注意不要包含 `vmess` 和 `trojan` 等关键字（用户名以 `example` 为例，修改后的项目名以 `demo` 为例）  
+ 5. 登陆heroku后，浏览器访问 https://repl.it/github/example/demo，再点击 Import from Github。
 
 ### 一键自动部署
 
