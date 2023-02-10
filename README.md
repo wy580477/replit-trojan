@@ -20,11 +20,11 @@
  
  **已无法从本库直接部署。**
 
- 1. 点击本仓库右上角Fork，再点击Create Fork。   
- 2. 在Fork出来的仓库页面上点击Setting，勾选Template repository。   
- 3. 然后点击Code返回之前的页面，点Setting下面新出现的按钮Use this template，起个随机名字创建新库。  
+ 1. 点击本仓库右上角 Fork ，再点击 Create Fork。   
+ 2. 在 Fork 出来的仓库页面上点击 Setting，勾选 Template repository。   
+ 3. 然后点击 Code 返回之前的页面，点 Setting 下面新出现的按钮 Use this template，起个随机名字创建新库。  
  4. 项目名称注意不要包含 `vmess` 和 `trojan` 等关键字（用户名以 `example` 为例，修改后的项目名以 `demo` 为例）  
- 5. 登陆heroku后，浏览器访问 https://repl.it/github/example/demo ，再点击 Import from Github。
+ 5. 登陆 Replit 后，浏览器访问 https://repl.it/github/example/demo ，再点击 Import from Github。
 
 ### 一键自动部署
 
