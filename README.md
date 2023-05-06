@@ -20,11 +20,15 @@
  
  **已无法从本库直接部署。**
 
- 1. 点击本仓库右上角 Fork ，再点击 Create Fork。   
- 2. 在 Fork 出来的仓库页面上点击 Setting，勾选 Template repository。   
- 3. 然后点击 Code 返回之前的页面，点 Setting 下面新出现的按钮 Use this template，起个随机名字创建新库。
- 4. 项目名称注意不要包含 `vmess` 和 `trojan` 等关键字（用户名以 `example` 为例，修改后的项目名以 `demo` 为例）  
- 5. 登陆 Replit 后，浏览器访问 https://repl.it/github/example/demo ，再点击 Import from Github。
+ 1. 下载[仓库文件](https://codeload.github.com/wy580477/replit-trojan/zip/refs/heads/main)，然后解压缩。
+ 
+ 2. 新建一个 blank repl。
+
+ 3. 将解压缩得到的除 README 外的文件，拖动到 repl 项目页面左侧 Files 处: 
+
+    ![image](https://user-images.githubusercontent.com/98247050/236609539-4748e5e1-bd9c-4db1-95d3-6c55b20d6fe8.png)
+
+    页面会弹出 overwrite 提示，全部点确定。
 
 ### 一键自动部署
 
