@@ -3,4 +3,4 @@ run = ["bash", "main.sh"]
 entrypoint = "main.sh"
 
 [nix]
-channel = "stable-21_11"
+channel = "stable-22_11"
