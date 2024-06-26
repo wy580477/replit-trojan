@@ -1,3 +1,5 @@
+## Replit 已经停止了 repl.co 域名的免费部署服务，本项目存档
+
 # replit-trojan
 
 ## 鸣谢
